@@ -42,7 +42,7 @@ class GameManager {
      */
     newGame() {
         //this.disableInputDurationIncrement();
-        const duration = document.getElementById("duration").value;
+        const duration = document.getElementById("duration").value*60;
         const increment = document.getElementById("increment").value;
 
         if (!this.validateDuration(duration) || !this.validateIncrement(increment)) {
@@ -176,15 +176,15 @@ class GameManager {
      */
     validateDuration(duration) {
         //default option
-        if (duration.trim() === '') {
+        if (duration === 0) {
             return true;
         }
         if (duration < 600) {
-            alert("Minimum game duration time is 600 seconds (10 minutes)!");
+            alert("Minimum game duration time is 10 minutes !");
             return false;
         }
         if (duration > 36000) {
-            alert("Maximum game duration time is 36000 seconds (10 hours)!");
+            alert("Maximum game duration time is 10 hours !");
             return false;
         }
         return true;
