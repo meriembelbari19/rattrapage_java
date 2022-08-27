@@ -8,6 +8,8 @@ import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
 import io.github.oliviercailloux.abg.ChessBoard;
 import io.github.oliviercailloux.abg.GameEntity;
 import io.github.oliviercailloux.abg.MoveEntity;
+import io.github.oliviercailloux.abg.MoveLittlePiece;
+import io.github.oliviercailloux.abg.MoveDAO;
 import io.github.oliviercailloux.abg.model.state.GameState;
 import io.github.oliviercailloux.abg.model.state.PlayerState;
 // import io.github.oliviercailloux.abg.ChessService;
@@ -93,9 +95,10 @@ public class GameResource {
   @POST
   @Path("{gameId}/move")
   @Consumes(MediaType.APPLICATION_JSON)
-  public void addMove(@PathParam("gameId") int gameId, MoveDAO move) {
+  public void addMove(@PathParam("gameId") int gameId, MoveLittlePiece movel) {
+	MoveDAO move = MoveDAO.createMoveDAO(movel.getFrom(),movel.getTo(),movel.getPiece());
     LOGGER.info("POST game/{}/move", gameId);
-    LOGGER.info("POST game/{}/move", move);
+    LOGGER.info("Coucou{}", move.getPromotion());
     final GameEntity game = chessService.getGame(gameId);
     final Duration duration = game.getCurrentMoveDuration();
     final MoveEntity moveEntity = MoveEntity.createMoveEntity(game, move, duration);

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import io.github.oliviercailloux.abg.Piece;
 
 @Entity
 public class CheckerBoard extends MyBoard {
