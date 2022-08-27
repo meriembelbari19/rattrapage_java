@@ -26,8 +26,8 @@ class GameManager {
             onDragStart: function(src, piece, pos, o) {
                 CBM.onDragStart(src, piece, pos, o);
             },
-            onDrop: function(src, dst) {
-                CBM.onDrop(src, dst);
+            onDrop: function(source, target, piece) {
+                CBM.onDrop(source, target, piece);
             },
             onSnapEnd: function() {
                 CBM.onSnapEnd();
@@ -42,7 +42,7 @@ class GameManager {
      */
     newGame() {
         //this.disableInputDurationIncrement();
-        const duration = document.getElementById("duration").value*60;
+        const duration = document.getElementById("duration").value;
         const increment = document.getElementById("increment").value;
 
         if (!this.validateDuration(duration) || !this.validateIncrement(increment)) {
@@ -93,6 +93,8 @@ class GameManager {
         this.manageTimePlayer();
     }
 
+	
+
     /**
      * Get moves from the database and plays them on the board
      */
@@ -101,10 +103,10 @@ class GameManager {
         let moves;
         database.get(url, (data) => {
         	this.CBM.loadMoves(data);
+			console.log(data);
             return moves = data;
         });
-
-
+		return moves;
     }
 
     /**
@@ -176,15 +178,15 @@ class GameManager {
      */
     validateDuration(duration) {
         //default option
-        if (duration === 0) {
+        if (duration.trim() === '') {
             return true;
         }
         if (duration < 600) {
-            alert("Minimum game duration time is 10 minutes !");
+            alert("Minimum game duration time is 600 seconds (10 minutes)!");
             return false;
         }
         if (duration > 36000) {
-            alert("Maximum game duration time is 10 hours !");
+            alert("Maximum game duration time is 36000 seconds (10 hours)!");
             return false;
         }
         return true;
