@@ -157,6 +157,7 @@ input {
   margin: 0 auto;
   text-align: center;
   margin-top: 25px;
+  transform: translate(470px,-500px);
 }
 
 #Black-player-clock, #White-player-clock {
